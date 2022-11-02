@@ -17,9 +17,9 @@
        <select id="selectpersonaje" class="form-select">
         </select>
         <hr></hr>
-        <!-- <a class='btn btn-info' onClick={this.modificarPersonaje}>
+        <a class='btn btn-info' onclick="modificarPersonaje()">
               Guardar cambios
-          </a> -->
+          </a>
           <div id="cajabtn"></div>
       </form>
     </div>
@@ -36,18 +36,16 @@
                 'dataType': 'JSON',
                 success : function(data) {
                 $.each(data, function(index, serie){
-                    var option =  $("<option>", {"text": serie.nombre});
+                    var option =  $("<option>", {"text": serie.nombre, "value": serie.idSerie});
                     $("#selectserie").append(option);
                 });
                 }
             });
             }
 
-            var url = "https://apiseriespersonajes2022.azurewebsites.net/"
+            var url = "https://apiseriespersonajes2023.azurewebsites.net/"
 
             function cargarPersonajes() {
-
-            
             var request = "/api/personajes";
             $.ajax({
                 'url': url + request,
@@ -55,7 +53,7 @@
                 'dataType': 'JSON',
                 success : function(data) {
                 $.each(data, function(index, personaje){
-                    var option =  $("<option>", {"text": personaje.nombre});
+                    var option =  $("<option>", {"text": personaje.nombre, "value": personaje.idPersonaje});
                     $("#selectpersonaje").append(option);
                     
                 });
@@ -64,7 +62,7 @@
             });
             }
 
-            function modificarApuesta() {
+            function modificarPersonaje() {
             let idpersonaje = $("#selectpersonaje").val();
             let idserie = $("#selectpersonaje").val();
             var request = "/api/Personajes/"+idpersonaje+"/"+idserie

@@ -10,9 +10,15 @@
     <div id="navbar"></div>
     <form class="border rounded w-75 mx-auto mt-1 text-center">
         <h5>Nuevo personaje</h5>
+        <label>Id personaje</label>
+      <input
+        id="cajaidperson"
+        class="form-control mx-auto w-75"
+        value=""
+      />
      <label>Nombre</label>
       <input
-        id="cajausuario"
+        id="cajanombre"
         class="form-control mx-auto w-75"
         value=""
       />
@@ -32,9 +38,9 @@
         value=""
       /> -->
       <hr></hr>
-      <a id="btninsertar" href="/personajes.html" class='btn btn-dark'>
-            Insertar personaje
-      </a>
+      <a class='btn btn-info' onclick="crearPersonaje()">
+        Guardar cambios
+    </a>
       <br><br>
     </form>
     <script src="js/jquery-3.6.1.min.js"></script>
@@ -43,7 +49,7 @@
             $("#navbar").load("./menu.html");  
             cargarSeries();
         })
-        var url = "https://apiseriespersonajes2022.azurewebsites.net/"
+        var url = "https://apiseriespersonajes2023.azurewebsites.net/"
 
         function cargarSeries() {
         var request = "/api/series";
@@ -53,24 +59,29 @@
             'dataType': 'JSON',
             success : function(data) {
             $.each(data, function(index, serie){
-                var option =  $("<option>", {"text": serie.nombre});
+                var option =  $("<option>", {"value": serie.idSerie, "text": serie.nombre});
                 $("#cajaselect").append(option);
             });
             }
         });
         }
 
-        $("#btninsertar").click(function(){
+
+       function crearPersonaje(){
             var requestPost="/api/personajes"
-            let usuario = $("#cajausuario").val()
+            let idperson = parseInt($("#cajaidperson").val())
+            let nombre = $("#cajanombre").val()
             let srcimg = $("#cajaimg").val()
-            let select = $("#cajaselect").val()
+            let select = parseInt($("#cajaselect").val())
+
+            console.log(select)
             //Creamos un objeto
             let personaje = new Object();
             //Propiedades igual que el servicio api
-            personaje.usuario = usuario;
-            personaje.resultado = srcimg;
-            personaje.fecha = select;
+            personaje.idPersonaje = idperson;
+            personaje.nombre = nombre;
+            personaje.imagen = srcimg;
+            personaje.idSerie = select;
             //Transformo el objeto al formato del servicio
             let dataJson = JSON.stringify(personaje);
             $.ajax({
@@ -83,7 +94,7 @@
                     console.log("¡PERSONAJE CREADO!")
                 }
             })
-        })
+        }
     </script>
 </body>
 </html>

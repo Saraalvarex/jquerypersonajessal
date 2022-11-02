@@ -9,7 +9,7 @@
 <body>
     <header id="navbar"></header>
     <div id="cajabtn" class="mx-auto text-center my-2">
-        <a href="/serie.html" id="btnVolver" class="btn btn-primary">Volver</a>       
+        <!-- <a href="/serie.html" id="btnVolver" class="btn btn-primary">Volver</a>        -->
     </div>
     <table  id="tablaPersonajes" class="table table-hover w-75 mx-auto align-middle">
       <thead>
@@ -32,12 +32,20 @@
 
     <script src="js/jquery-3.6.1.min.js"></script>
     <script>
-        var url= "https://apiseriespersonajes2022.azurewebsites.net/";
+        var url= "https://apiseriespersonajes2023.azurewebsites.net/";
         const parameters = new URLSearchParams(window.location.search);
 
         function getJugadores(){
             var id = parameters.get("idSerie")
             var request = "/api/Series/PersonajesSerie/"+id
+
+            var a =  $("<a>", {
+                    "class":"btn btn-info",
+                    "href":"serie.html?idSerie=" + id,
+                    "text": "Volver"
+                    });
+            $("#cajabtn").append(a)
+
             $.ajax({
                 "url": url+request,
                 "method": "GET",
