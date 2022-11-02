@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <header id="navbar"></header>
+  <h1>Home🏡</h1>
+  <!-- SEPARADOR -->
+  <hr />
+  <br />
+<!-- TABLA -->
+  <h4>TABLA</h4>
+  <div class="mx-auto text-center my-2">
+    <a id="btnVolver" class="btn btn-primary">Return</a> &nbsp;     
+    <a id="btnCreate" class="btn btn-success">Crear</a>        
+</div>
+<table class="table table-hover w-75 mx-auto align-middle">
+  <thead>
+      <tr class="text-center">
+          <th>Usuario</th>
+          <th>Resultado</th>
+          <th>Fecha</th>
+          <th></th>
+      </tr>
+  </thead>
+    <tbody>
+      <tr class="table-dark text-center">
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>
+          <a href="/" class="btn btn-outline-warning my-1 mx-1">Modificar</a>
+          <a href="/" class="btn btn-outline-danger my-1 mx-1">Eliminar</a>
+        </td>
+      </tr>
+      <tr class="table-dark text-center">
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>@fat</td>
+        <td>
+          <a href="/" class="btn btn-outline-warning my-1 mx-1">Modificar</a>
+          <a href="/" class="btn btn-outline-danger my-1 mx-1">Eliminar</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+<!-- CARD/FICHA -->
+<h5>FICHA JUGADOR</h5>
+  <div class="card text-center">
+  <div class="card-header">
+      HEADER
+  </div>
+  <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">DESCRIPCION.</p>
+      <a href="/" class="btn btn-primary">BOTON</a>
+  </div>
+  <div class="card-footer text-muted">
+      FOOTER DE LA FICHA
+  </div>
+  </div>
+<!-- ----------- FORMULARIO--------------------  -->
+
+  <div>
+    <form class="border rounded w-75 mx-auto mt-1 text-center">
+      <h5>TITTLE FORM</h5>
+      <label>Numero</label>
+    <input
+      type="number"
+      class="form-control mx-auto w-75"
+      value=""
+      id="cajanumero"
+    />
+   <label>Usuario</label>
+    <input
+      id="cajauser"
+      class="form-control mx-auto w-75"
+      value=""
+    />
+    <label>Resultado</label>
+    <input
+      id="cajaresu"
+      type="text"
+      class="form-control mx-auto w-75"
+      value=""
+    />
+    <label>Fecha</label>
+    <input
+      id="cajafecha"
+      class="form-control mx-auto w-75"
+      value=""
+    />
+    <hr></hr>
+    <a href="home.html" class='btn btn-outline-dark'>
+          Boton
+    </a>
+    <br><br>
+  </form>
+</div>
+
+<!-- FORMULARIO -->
+
+<!-- BOTONES -->
+  <h4>BUTONS</h4><br/>
+  <button type="button" class="btn btn-primary">Primary</button>
+  <button type="button" class="btn btn-secondary">Secondary</button>
+  <button type="button" class="btn btn-success">Success</button>
+  <button type="button" class="btn btn-danger">Danger</button>
+  <button type="button" class="btn btn-warning">Warning</button>
+  <button type="button" class="btn btn-info">Info</button>
+  <button type="button" class="btn btn-light">Light</button>
+  <button type="button" class="btn btn-dark">Dark</button>
+  <button type="button" class="btn btn-link">Link</button>
+  <br/>
+  <button type="button" class="btn btn-outline-primary">Primary</button>
+  <button type="button" class="btn btn-outline-secondary">Secondary</button>
+  <button type="button" class="btn btn-outline-success">Success</button>
+  <button type="button" class="btn btn-outline-danger">Danger</button>
+  <button type="button" class="btn btn-outline-warning">Warning</button>
+  <button type="button" class="btn btn-outline-info">Info</button>
+  <button type="button" class="btn btn-outline-light">Light</button>
+  <button type="button" class="btn btn-outline-dark">Dark</button>
+
+<!--CENTRAR BOTONES: cambia el numero del col-n al que quieras para el width -->
+  <div class="d-grid gap-2 col-4 mx-auto">
+      <button class="btn btn-primary" type="button">Button</button>
+      <button class="btn btn-outline-success" type="button">Button</button>
+  </div>
+  <hr/>
+
+<script src="../js/jquery-3.6.1.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#navbar").load("menu.html")
+  })
+</script>
+</body>
+</html>

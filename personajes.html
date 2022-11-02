@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personajes</title>
+</head>
+<body>
+    <header id="navbar"></header>
+    <div id="cajabtn" class="mx-auto text-center my-2">
+        <a href="/serie.html" id="btnVolver" class="btn btn-primary">Volver</a>       
+    </div>
+    <table  id="tablaPersonajes" class="table table-hover w-75 mx-auto align-middle">
+      <thead>
+          <tr class="text-center">
+              <th>Nombre</th>
+              <th>Imagen</th>
+          </tr>
+      </thead>
+        <tbody>
+          <!-- <tr class="table-dark text-center">
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>
+              <a href="/" class="btn btn-outline-warning my-1 mx-1">Detalles</a>
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+        var url= "https://apiseriespersonajes2022.azurewebsites.net/";
+        const parameters = new URLSearchParams(window.location.search);
+
+        function getJugadores(){
+            var id = parameters.get("idSerie")
+            var request = "/api/Series/PersonajesSerie/"+id
+            $.ajax({
+                "url": url+request,
+                "method": "GET",
+                success: function(data){
+                    
+                    $.each(data, function(index, personaje){
+                        var tr = $("<tr>", {"class":"table-dark text-center"});
+                        var tdnombre = $("<td>", {"class": "table-dark text-center", "text": personaje.nombre});
+                        var tdimagen = $("<td>", {"class": "table-dark text-center"});
+                        var tdbtn = $("<td>", {"class": "table-dark text-center"});
+                       
+                        var imagen = $("<img>", {"src": personaje.imagen, "style": "width: 150px"})
+                        tdimagen.append(imagen)
+                        
+                        tr.append(tdnombre, tdimagen)
+                        $("#tablaPersonajes tbody").append(tr)
+                    })
+                }
+            })
+        }
+
+        $(document).ready(function(){
+            $("#navbar").load("menu.html")
+            getJugadores();
+        })
+    </script>
+</body>
+</html>

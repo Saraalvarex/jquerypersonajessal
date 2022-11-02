@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div>
+        <form class="form-control">
+        <label>Seleccione una serie</label>
+        <select id="selectserie" class="form-select">
+        </select>
+       <label>Seleccione un personaje</label>
+       <select id="selectpersonaje" class="form-select">
+        </select>
+        <hr></hr>
+        <!-- <a class='btn btn-info' onClick={this.modificarPersonaje}>
+              Guardar cambios
+          </a> -->
+          <div id="cajabtn"></div>
+      </form>
+    </div>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+            var url = "https://apiseriespersonajes2022.azurewebsites.net/"
+
+            function cargarSeries() {
+            var request = "/api/series";
+            $.ajax({
+                'url': url + request,
+                'method': 'GET',
+                'dataType': 'JSON',
+                success : function(data) {
+                $.each(data, function(index, serie){
+                    var option =  $("<option>", {"text": serie.nombre});
+                    $("#selectserie").append(option);
+                });
+                }
+            });
+            }
+
+            var url = "https://apiseriespersonajes2022.azurewebsites.net/"
+
+            function cargarPersonajes() {
+
+            
+            var request = "/api/personajes";
+            $.ajax({
+                'url': url + request,
+                'method': 'GET',
+                'dataType': 'JSON',
+                success : function(data) {
+                $.each(data, function(index, personaje){
+                    var option =  $("<option>", {"text": personaje.nombre});
+                    $("#selectpersonaje").append(option);
+                    
+                });
+                
+                }
+            });
+            }
+
+            function modificarApuesta() {
+            let idpersonaje = $("#selectpersonaje").val();
+            let idserie = $("#selectpersonaje").val();
+            var request = "/api/Personajes/"+idpersonaje+"/"+idserie
+            
+            //Creo objeto!
+            let personaje = new Object();
+
+            personaje.idSersonaje = idpersonaje;
+            personaje.idSerie = idserie;
+
+            let dataJson = JSON.stringify(personaje);
+            $.ajax({
+                "url": url+request,
+                "method": "PUT",
+                "data": dataJson,
+                "contentType": "application/json",
+                success: function(){
+                    console.log("Modificado");
+                }
+            })
+        }
+            
+
+    $(document).ready(function(){
+        $("#navbar").load("menu.html");
+        cargarPersonajes()
+        cargarSeries()
+    })
+    </script>
+</body>
+</html>

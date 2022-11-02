@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo personaje</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <form class="border rounded w-75 mx-auto mt-1 text-center">
+        <h5>Nuevo personaje</h5>
+     <label>Nombre</label>
+      <input
+        id="cajausuario"
+        class="form-control mx-auto w-75"
+        value=""
+      />
+      <label>Imagen</label>
+      <input
+        id="cajaimg"
+        type="text"
+        class="form-control mx-auto w-75"
+        value=""
+      />
+      <label>Serie</label>
+      <br>
+      <select class="form-select" id="cajaselect"></select>
+      <!-- <input
+        id="cajafecha"
+        class="form-control mx-auto w-75"
+        value=""
+      /> -->
+      <hr></hr>
+      <a id="btninsertar" href="/personajes.html" class='btn btn-dark'>
+            Insertar personaje
+      </a>
+      <br><br>
+    </form>
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#navbar").load("./menu.html");  
+            cargarSeries();
+        })
+        var url = "https://apiseriespersonajes2022.azurewebsites.net/"
+
+        function cargarSeries() {
+        var request = "/api/series";
+        $.ajax({
+            'url': url + request,
+            'method': 'GET',
+            'dataType': 'JSON',
+            success : function(data) {
+            $.each(data, function(index, serie){
+                var option =  $("<option>", {"text": serie.nombre});
+                $("#cajaselect").append(option);
+            });
+            }
+        });
+        }
+
+        $("#btninsertar").click(function(){
+            var requestPost="/api/personajes"
+            let usuario = $("#cajausuario").val()
+            let srcimg = $("#cajaimg").val()
+            let select = $("#cajaselect").val()
+            //Creamos un objeto
+            let personaje = new Object();
+            //Propiedades igual que el servicio api
+            personaje.usuario = usuario;
+            personaje.resultado = srcimg;
+            personaje.fecha = select;
+            //Transformo el objeto al formato del servicio
+            let dataJson = JSON.stringify(personaje);
+            $.ajax({
+                "url": url+requestPost,
+                "method": "POST",
+                //objeto a enviar
+                "data": dataJson,
+                "contentType": "application/json",
+                success: function() {
+                    console.log("¡PERSONAJE CREADO!")
+                }
+            })
+        })
+    </script>
+</body>
+</html>

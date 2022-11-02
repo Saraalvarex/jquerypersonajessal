@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie</title>
+    <style>
+        .imagen {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="card text-center">
+    <div id="cajanombre" class="card-header">
+    </div>
+    <div id="cajaimagen" class="card-body">
+
+    </div>
+    <div id="cajadesc" class="card-body">
+        <!-- <h5 class="card-title">Champions</h5> 
+        <p class="card-text">Descripcion</p>-->
+    </div>
+    <div id="cajabotones" class="card-body">
+        <!-- <a href="jugadores.html?idEquipo="+equipo.idEquipo class="btn btn-success">Jugadores</a>
+        <button onclick="window.location.href='/jugadores'">Jugadores</button> -->
+        <a href="home.html" type="button" class="btn btn-info">Volver</a>
+    </div>
+    </div>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+        //url y paramtros fuera de la funcion
+        var url = "https://apiseriespersonajes2022.azurewebsites.net/";
+
+        const parameters = new URLSearchParams(window.location.search);
+        function cargarSerie() {
+            var idserie = parameters.get("idSerie")
+            var request = "api/series/"+idserie
+            $.ajax({
+                'url': url+request,
+                'method': "GET",
+                'dataType': "JSON",
+                success: function(data) {
+                    //Creo parrafo, añado contenido y lo incluyo en su caja
+                    let nombreserie= $("<p>", {"text": data.nombre})
+                    $("#cajanombre").append(nombreserie)
+                    //Creo parrafos y los incluyo en su caja
+                    let punt = $("<p>", {"text": "Puntuación: "+data.puntuacion})
+                    let anyo = $("<p>", {"text": "Año: "+data.año})
+                    $("#cajadesc").append(punt, anyo)
+                    //Creo imagen y la incluyo en su caja
+                    let logoequipo = $("<img>", {"src": data.imagen, "class": "imagen"})
+                    $("#cajaimagen").append(logoequipo)
+                    var btnPersonajes = $("<a>", {"href" : "personajes.html?idSerie="+data.idSerie, "class":"btn btn-success", "text": "Personajes"})
+                    $("#cajabotones").append(btnPersonajes)
+                }
+            })
+        }
+        $(document).ready(function() {
+            $("#navbar").load("./menu.html");
+            cargarSerie();
+        });
+    </script>
+</body>
+</html>

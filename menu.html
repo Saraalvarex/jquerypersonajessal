@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- AL PONER EL LINK BOOTSTRAP EN EL MENU E IMPORTARLO EN CADA PAGINA, LO COGE EN TODAS -->
+<!-- LINK EXTERNO BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- LINK A CARPETA BOOTSTRAP -->
+<!-- <link href="../css/bootstrap.min.css" rel="stylesheet"> -->
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html"><img style="width: 60px;" src="./images/logo.jpg"/></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="nuevopersonaje.html">Nuevo personaje</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="modificarpersonaje.html">Modificar personajes</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Series
+            </a>
+            <ul class="dropdown-menu" id="dropdown">
+              <!-- <li><a class="dropdown-item" href="#">Dropdown item</a></li> -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <script src="../js/jquery-3.6.1.min.js"></script>
+  <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../js/bootstrap.bundle.min.js"></script>
+        CARPETA INTERNA -->
+  <!-- BOOTSTRAP -->
+  
+  <script>
+    var url = "https://apiseriespersonajes2022.azurewebsites.net/";
+    $(document).ready(function() {
+      cargarSeries();
+    })
+    // Cargar equipos en el "select"
+    function cargarSeries() {
+      var request = "/api/series";
+      $.ajax({
+        'url': url + request,
+        'method': 'GET',
+        'dataType': 'JSON',
+        success : function(data) {
+          /* 
+            Success recuperará nuestro data, que en este caso nos devuelve un array
+            de equipos. Recorreremos dicho array y almacenaremos cada equipo en una 
+            variable llamada 'equipo'. 
+          */
+          $.each(data, function(index, serie){
+            /* 
+              Recorremos data
+            */
+            var li = $("<li>");
+            var a =  $("<a>", {
+              "class":"dropdown-item",
+              "href":"serie.html?idSerie=" + serie.idSerie,
+              "text": serie.nombre
+            });
+
+            li.append(a);
+            $("#dropdown").append(li);
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
